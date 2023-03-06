@@ -1,8 +1,6 @@
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import css from './ContactList.module.css';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/slise';
+import css from './ContactList.module.css';
 
 export const ContactList = () => {
   const dispatch = useDispatch();

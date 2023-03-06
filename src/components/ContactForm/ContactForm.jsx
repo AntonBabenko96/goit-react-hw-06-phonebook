@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import css from './ContactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addConatact } from '../../redux/slise';
+import css from './ContactForm.module.css';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
