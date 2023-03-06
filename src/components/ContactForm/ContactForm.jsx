@@ -22,7 +22,7 @@ export const ContactForm = () => {
       contact => contact.name.toLowerCase() === normalizedName
     );
     if (dublicate) {
-      alert(`${contacts.name} is already in your contact list`);
+      alert(`${name} is already in your contact list`);
       return;
     }
     dispatch(addConatact(state));
