@@ -1,24 +1,33 @@
 import { useState } from 'react';
 import css from './ContactForm.module.css';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { addConatact } from '../../redux/slise';
 
-export const ContactForm = ({ onSubmit }) => {
+export const ContactForm = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts.contacts);
   const [state, setState] = useState({ name: '', number: '' });
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
-    setState(prevState => {
-      return { ...prevState, [name]: value };
-    });
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    onSubmit({ ...state });
-    setState({ name: '', number: '' });
+    setState(prevState => ({ ...prevState, [name]: value }));
   };
 
   const { name, number } = state;
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    const normalizedName = name.toLowerCase();
+    const dublicate = contacts.find(
+      contact => contact.name.toLowerCase() === normalizedName
+    );
+    if (dublicate) {
+      alert(`${contacts.name} is already in your contact list`);
+      return;
+    }
+    dispatch(addConatact(state));
+    setState({ name: '', number: '' });
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -50,8 +59,4 @@ export const ContactForm = ({ onSubmit }) => {
       <button type="submit">Add contact</button>
     </form>
   );
-};
-
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
 };
